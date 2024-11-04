@@ -1,19 +1,19 @@
 import "dotenv/config";
+import { app } from "./app";
 import { client } from "./redis/redisClient";
-import express from "express";
-import cookieParser from "cookie-parser";
-const app = express();
 
 (async function connectToRedis() {
   if (!client.isOpen) {
     try {
       await client.connect();
       console.log("Connected to Redis");
+      app.listen(process.env.SERVER_PORT || 8000, () => {
+        console.log(
+          `⚙️ Server is running at port : ${process.env.SERVER_PORT}`
+        );
+      });
     } catch (error) {
       console.error("Error connecting to Redis:", error);
     }
   }
 })();
-
-app.use(express.json());
-app.use(cookieParser()); // Parse cookies
