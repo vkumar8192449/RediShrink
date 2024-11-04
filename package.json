@@ -15,10 +15,13 @@
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "nanoid": "^5.0.8",
     "redis": "^4.7.0",
+    "shortid": "^2.2.16",
     "typescript": "^5.6.3"
   },
   "devDependencies": {
-    "@types/cookie-parser": "^1.4.7"
+    "@types/cookie-parser": "^1.4.7",
+    "@types/shortid": "^2.2.0"
   }
 }

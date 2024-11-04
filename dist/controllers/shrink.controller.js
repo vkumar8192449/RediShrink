@@ -8,23 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-require("dotenv/config");
-const app_1 = require("./app");
-const redisClient_1 = require("./redis/redisClient");
-(function connectToRedis() {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (!redisClient_1.client.isOpen) {
-            try {
-                yield redisClient_1.client.connect();
-                console.log("Connected to Redis");
-                app_1.app.listen(process.env.SERVER_PORT || 8000, () => {
-                    console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
-                });
-            }
-            catch (error) {
-                console.error("Error connecting to Redis:", error);
-            }
-        }
-    });
-})();
+exports.shrinkURL = void 0;
+const shortid_1 = __importDefault(require("shortid"));
+const redisClient_1 = require("../redis/redisClient");
+const shrinkURL = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { originalUrl } = req.body;
+    const urlId = shortid_1.default.generate();
+    const shrinkUrl = `${process.env.BACKEND_URL}${process.env.PORT}/${urlId}`;
+    yield redisClient_1.client.set(urlId, originalUrl);
+    yield redisClient_1.client.set(`clicks:${urlId}`, 0); // Initialize click count
+    res.json({ shrinkUrl });
+});
+exports.shrinkURL = shrinkURL;
