@@ -16,4 +16,7 @@ const stats_routes_1 = __importDefault(require("./routes/stats.routes"));
 //routes declaration
 app.use("/api/shrink", shrink_routes_1.default);
 app.use("/api/stats", stats_routes_1.default);
+app.get("/health-check", (req, res) => {
+    res.status(200).json({ message: "ALL OK" });
+});
 app.use("/", redirect_routes_1.default);

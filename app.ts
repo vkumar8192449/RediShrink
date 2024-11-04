@@ -12,6 +12,11 @@ import statsRouter from "./routes/stats.routes";
 //routes declaration
 app.use("/api/shrink", shrinkRouter);
 app.use("/api/stats", statsRouter);
+
+app.get("/health-check", (req, res) => {
+  res.status(200).json({ message: "ALL OK" });
+});
+
 app.use("/", redirectRouter);
 
 export { app };

@@ -13,7 +13,6 @@ exports.statistics = void 0;
 const redisClient_1 = require("../redis/redisClient");
 const statistics = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const urlId = req.params.shrinkurl;
-    // Get click count from Redis
     const clickCount = yield redisClient_1.client.get(`clicks:${urlId}`);
     if (clickCount) {
         res.json({ clickCount });
