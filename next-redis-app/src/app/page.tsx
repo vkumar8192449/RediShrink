@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { AlertCircle, Link as LinkIcon, Copy, Check } from "lucide-react";
+import { AlertCircle, Copy, Check } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import ThemeToggle from "../components/ui/ThemeToggle";
 
@@ -43,6 +43,7 @@ const URLShortener = () => {
       const data = await response.json();
       setShortenedUrl(data.shrinkUrl);
     } catch (err) {
+      console.log(err);
       setError("Failed to shorten URL. Please try again.");
     } finally {
       setLoading(false);
@@ -55,6 +56,7 @@ const URLShortener = () => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
+      console.log(err);
       setError("Failed to copy to clipboard");
     }
   };
@@ -78,11 +80,11 @@ const URLShortener = () => {
                 xmlnsXlink="http://www.w3.org/1999/xlink"
                 fill="#000000"
               >
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                 <g
                   id="SVGRepo_tracerCarrier"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></g>
                 <g id="SVGRepo_iconCarrier">
                   {" "}
