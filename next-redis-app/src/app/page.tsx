@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { AlertCircle, Link as LinkIcon, Copy, Check } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import ThemeToggle from "../components/ui/ThemeToggle";
 
 const URLShortener = () => {
   const [url, setUrl] = useState("");
@@ -59,10 +60,14 @@ const URLShortener = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 via-white to-red-50 p-4">
-      <Card className="w-full max-w-md shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 via-white to-red-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 transition-colors duration-200">
+      <Card className="w-full max-w-md shadow-lg hover:shadow-xl transition-all duration-300 dark:bg-gray-800 dark:border-gray-700 relative">
+        <div className="absolute top-4 right-4">
+          <ThemeToggle />
+        </div>
+
         <CardHeader className="text-center space-y-4 pb-2">
-          <div className="w-20 h-20 mx-auto bg-red-600 rounded-lg flex items-center justify-center transform rotate-12 shadow-lg">
+          <div className="w-20 h-20 mx-auto bg-red-600 dark:bg-red-500 rounded-lg flex items-center justify-center transform rotate-12 shadow-lg">
             <div className="transform -rotate-12">
               <svg
                 width="91px"
@@ -89,9 +94,9 @@ const URLShortener = () => {
               </svg>
             </div>
           </div>
-          <CardTitle className="text-3xl font-bold text-gray-800 tracking-tight">
+          <CardTitle className="text-3xl font-bold text-gray-800 dark:text-gray-100 tracking-tight">
             URL Shortener
-            <span className="text-sm font-normal text-red-600 block mt-1">
+            <span className="text-sm font-normal text-red-600 dark:text-red-400 block mt-1">
               Powered by Redis
             </span>
           </CardTitle>
@@ -105,14 +110,18 @@ const URLShortener = () => {
                 placeholder="Enter your long URL here..."
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                className="w-full pl-4 pr-4 py-6 text-lg border-2 focus:border-red-400 focus:ring-red-100 transition-all duration-200"
+                className="w-full pl-4 pr-4 py-6 text-lg border-2 focus:border-red-400 focus:ring-red-100 
+                dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100 dark:placeholder-gray-400 
+                dark:focus:border-red-400 dark:focus:ring-red-900 transition-all duration-200"
               />
             </div>
 
             <Button
               onClick={handleShorten}
               disabled={loading}
-              className="w-full py-6 text-lg bg-red-600 hover:bg-red-700 transition-colors duration-200"
+              className="w-full py-6 text-lg bg-red-600 hover:bg-red-700 dark:bg-red-500 
+              dark:hover:bg-red-600 disabled:bg-gray-300 dark:disabled:bg-gray-700 
+              transition-colors duration-200"
             >
               {loading ? (
                 <div className="flex items-center gap-2">
@@ -128,7 +137,8 @@ const URLShortener = () => {
           {error && (
             <Alert
               variant="destructive"
-              className="animate-slideIn bg-red-50 border-red-200"
+              className="animate-slideIn bg-red-50 border-red-200 
+              dark:bg-red-900/20 dark:border-red-800/50 dark:text-red-300"
             >
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>{error}</AlertDescription>
@@ -136,28 +146,35 @@ const URLShortener = () => {
           )}
 
           {shortenedUrl && (
-            <div className="mt-6 p-6 bg-gradient-to-r from-red-50 to-white rounded-lg border border-red-100 animate-fadeIn">
-              <p className="font-medium mb-3 text-gray-700">Shortened URL:</p>
+            <div
+              className="mt-6 p-6 bg-gradient-to-r from-red-50 to-white dark:from-gray-700 
+            dark:to-gray-800 rounded-lg border border-red-100 dark:border-gray-600 animate-fadeIn"
+            >
+              <p className="font-medium mb-3 text-gray-700 dark:text-gray-300">
+                Shortened URL:
+              </p>
               <div className="flex gap-2">
                 <Input
                   value={shortenedUrl}
                   readOnly
-                  className="flex-1 bg-white font-mono text-red-600"
+                  className="flex-1 bg-white dark:bg-gray-900 font-mono text-red-600 
+                  dark:text-red-400 cursor-default"
                 />
                 <Button
                   onClick={copyToClipboard}
                   variant="outline"
-                  className="min-w-[100px] hover:bg-red-50 transition-colors duration-200"
+                  className="min-w-[100px] hover:bg-red-50 dark:hover:bg-gray-700 
+                  transition-colors duration-200 dark:border-gray-600"
                 >
                   {copied ? (
                     <span className="flex items-center gap-2">
                       <Check className="h-4 w-4 text-green-500" />
-                      Copied!
+                      <span className="dark:text-gray-300">Copied!</span>
                     </span>
                   ) : (
                     <span className="flex items-center gap-2">
                       <Copy className="h-4 w-4" />
-                      Copy
+                      <span className="dark:text-gray-300">Copy</span>
                     </span>
                   )}
                 </Button>
@@ -165,7 +182,7 @@ const URLShortener = () => {
             </div>
           )}
 
-          <p className="text-center text-sm text-gray-500 mt-6">
+          <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
             Enter a URL above to generate a shortened version
           </p>
         </CardContent>
