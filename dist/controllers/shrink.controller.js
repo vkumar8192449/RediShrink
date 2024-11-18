@@ -18,7 +18,7 @@ const redisClient_1 = require("../redis/redisClient");
 const shrinkURL = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { originalUrl } = req.body;
     const urlId = shortid_1.default.generate();
-    const shrinkUrl = `${process.env.BACKEND_URL}${process.env.PORT}/${urlId}`;
+    const shrinkUrl = `${process.env.BACKEND_URL}/${urlId}`;
     yield redisClient_1.client.set(`${urlId}`, originalUrl);
     yield redisClient_1.client.set(`clicks:${urlId}`, 0); // Initialize click count
     res.json({ shrinkUrl });

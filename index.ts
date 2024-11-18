@@ -7,7 +7,7 @@ import { client } from "./redis/redisClient";
     try {
       await client.connect();
       console.log("Connected to Redis");
-      app.listen(process.env.SERVER_PORT || 8000, () => {
+      app.listen(process.env.PORT || 8000, () => {
         console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
       });
     } catch (error) {
